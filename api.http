@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:3333
+
+### get all memories
+# @name getMemories
+GET {{baseUrl}}/memories
+
+@memoryId = {{getMemories.response.body.$[0].id}}
+
+### get a memory
+# @name getMemory
+GET {{baseUrl}}/memories/{{memoryId}}
+
+### create a memory
+# @name createMemory
+POST {{baseUrl}}/memories
+Content-Type: application/json
+
+{
+  "content": "My other memory",
+  "coverUrl": "https://github.com/jeffymesquita.png",
+  "isPublic": "1"
+}
+
+@otherMemoryId = {{createMemory.response.body.$.id}}
+
+### update a memory
+# @name updateMemory
+PUT {{baseUrl}}/memories/{{otherMemoryId}}
+Content-Type: application/json
+
+{
+  "content": "My first memory updated",
+  "coverUrl": "https://github.com/jeffymesquita.png",
+  "isPublic": "0"
+}
